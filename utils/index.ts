@@ -1,0 +1,36 @@
+export const upperFirst = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+export const randomImages = [
+  "/ai.png",
+  "/alice.png",
+  "/alucard.png",
+  "/beatrice.png",
+  "/bocchi.png",
+  "/charlotte.png",
+  "/chika.png",
+  "/dazai.png",
+  "/frieren.png",
+  "/futaba.png",
+  "/holo.png",
+  "/indeks.png",
+  "/jabami.png",
+  "/kanna.png",
+  "/lucy.png",
+  "/mai.png",
+  "/megumin.png",
+  "/mirai.png",
+  "/nezuko.png",
+  "/power.png",
+  "/rebecca.png",
+  "/rikka.png",
+  "/rize.png",
+  "/roxy.png",
+  "/ryuu.png",
+  "/shaltear.png",
+  "/shiina.png",
+  "/thorfinn.png",
+  "/tsumugi.png",
+  "/yami.png",
+];
