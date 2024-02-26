@@ -11,6 +11,7 @@ import Boards from "./Boards";
 import LoadingBoards from "./LoadingBoards";
 import { useBoard } from "@/store/useBoard";
 import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 interface Props {
   orgId: string;
@@ -20,26 +21,37 @@ interface Props {
   };
 }
 const BoardsList = ({ orgId, query }: Props) => {
-  const boards = useQuery(api.boards.getBoards, { orgId, ...query });
+  const { board, setBoard } = useBoard();
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search")?.toString() ?? "";
+  const favorites = searchParams.get("favorites")?.toString() ?? "";
+  const boards = useQuery(api.boards.getBoards, { orgId, search, favorites });
+
+  useEffect(() => {
+    if (boards) {
+      setBoard(boards);
+    }
+  }, [boards, setBoard, search, favorites]);
 
   const { userId } = useAuth();
 
   if (boards === undefined) return <LoadingBoards />;
-
-  if (!boards?.length && query.search) return <EmptySearch />;
-  if (!boards?.length && query.favorites) return <EmptyFavorites />;
-  if (!boards?.length) return <EmptyBoard />;
+  else if (!boards?.length) {
+    if (query.search) return <EmptySearch />;
+    else if (query.favorites) return <EmptyFavorites />;
+    else return <EmptyBoard />;
+  }
 
   return (
     <div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6 gap-5 mt-8 pb-10">
         <AddBoard orgId={orgId} />
-        {boards?.map((board) => (
+        {board?.map((b) => (
           <Boards
-            key={board._id}
-            {...board}
+            key={b._id}
+            {...b}
             userId={userId!}
-            isFavorite={board.isFavorite}
+            isFavorite={b.isFavorite}
           />
         ))}
       </div>

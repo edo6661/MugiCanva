@@ -4,11 +4,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebounceCallback } from "usehooks-ts";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { useBoard } from "@/store/useBoard";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 interface Props {
   orgId: string;
 }
 const SearchInput = ({ orgId }: Props) => {
   const router = useRouter();
+  const { board, setBoard } = useBoard();
 
   // const [term, setTerm] = useState("");
 
@@ -26,9 +30,7 @@ const SearchInput = ({ orgId }: Props) => {
   const handleSearch = useDebounceCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     term ? params.set("search", term) : params.delete("search");
-    router.refresh();
     router.replace(`${pathname}?${params.toString()}`);
-    router.refresh();
   }, 500);
 
   return (

@@ -29,25 +29,16 @@ export default function DropdownBoards() {
   //   }
   // }, [pathname]);
 
-  // ! idk why only work in development
   const router = useRouter();
   const searchParams = useSearchParams();
   const favorites = searchParams.get("favorites");
 
   React.useEffect(() => {
     if (favorites) {
-      router.refresh();
-      router.prefetch("/?favorites=true");
-      setBoard("favorites");
-      router.prefetch("/?favorites=true");
-      router.refresh();
+      return setBoard("favorites");
     }
-    router.refresh();
-    router.prefetch("/");
-    setBoard("team");
-    router.prefetch("/");
-    router.refresh();
-  }, [favorites, router]);
+    return setBoard("team");
+  }, [favorites]);
 
   return (
     <DropdownMenu>
