@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import FooterBoard from "./FooterBoard";
 import { Skeleton } from "@/components/ui/skeleton";
 import Overlay from "./Overlay";
+import { Board } from "@/types/board";
 
 const Boards = ({
   _id,
