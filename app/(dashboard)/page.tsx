@@ -5,7 +5,6 @@ import BoardsList from "./_components/BoardsList";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import { useisFavorites } from "@/store/useIsFavorites";
-import { motion } from "framer-motion";
 
 interface Props {
   searchParams: {

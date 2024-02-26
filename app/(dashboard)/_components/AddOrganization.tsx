@@ -30,14 +30,16 @@ export const ReuseableModal = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Hint
-          label="Add Organization"
-          side="right"
-          align="center"
-          sideOffset={18}
-        >
-          <div className="w-full">{children}</div>
-        </Hint>
+        <div className="w-full">
+          <Hint
+            label="Add Organization"
+            side="right"
+            align="center"
+            sideOffset={18}
+          >
+            <div className="w-full">{children}</div>
+          </Hint>
+        </div>
       </DialogTrigger>
       <DialogContent className="p-0 bg-transparent border-none max-w-[480px]">
         <CreateOrganization />
