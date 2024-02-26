@@ -21,25 +21,27 @@ export default function DropdownBoards() {
   const [board, setBoard] = React.useState("team");
   const pathname = usePathname();
 
-  React.useEffect(() => {
-    if (pathname.includes("/q")) {
-      setBoard("favorites");
-    } else {
-      setBoard("team");
-    }
-  }, [pathname]);
+  // React.useEffect(() => {
+  //   if (pathname.includes("/q")) {
+  //     setBoard("favorites");
+  //   } else {
+  //     setBoard("team");
+  //   }
+  // }, [pathname]);
 
   // ! idk why only work in development
-  // const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const favorites = searchParams.get("favorites");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const favorites = searchParams.get("favorites");
 
-  // React.useEffect(() => {
-  //   if (favorites) {
-  //     return setBoard("favorites");
-  //   }
-  //   return setBoard("team");
-  // }, [favorites]);
+  React.useEffect(() => {
+    if (favorites) {
+      router.refresh();
+      return setBoard("favorites");
+    }
+    router.refresh();
+    return setBoard("team");
+  }, [favorites]);
 
   return (
     <DropdownMenu>
@@ -61,7 +63,7 @@ export default function DropdownBoards() {
           <DropdownMenuRadioItem value="favorites" className=" mx-auto p-0">
             <Link
               href={{
-                pathname: "/q",
+                pathname: "/",
                 query: { favorites: "true" },
               }}
               className="fl-itc gap-2 h-full w-full py-2 px-8"
