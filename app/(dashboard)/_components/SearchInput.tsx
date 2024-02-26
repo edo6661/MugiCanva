@@ -1,36 +1,26 @@
 "use client";
 import { Search } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useDebounce } from "usehooks-ts";
-import qs from "query-string";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useDebounceCallback } from "usehooks-ts";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useOrganization } from "@clerk/nextjs";
+import { useisFavorites } from "@/store/useIsFavorites";
 interface Props {
   orgId: string;
 }
 const SearchInput = ({ orgId }: Props) => {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const [value, setValue] = useState("");
-  const debouncedValue = useDebounce(value, 500);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
-  useEffect(() => {
-    const url = qs.stringifyUrl(
-      {
-        url: "/",
-        query: {
-          search: debouncedValue,
-        },
-      },
-      { skipEmptyString: true, skipNull: true }
-    );
-
-    router.push(url);
-  }, [debouncedValue, router]);
+  const handleSearch = useDebounceCallback((term: string) => {
+    const params = new URLSearchParams(searchParams);
+    term ? params.set("search", term) : params.delete("search");
+    router.replace(`${pathname}?${params.toString()}`);
+  }, 500);
 
   return (
     <div className=" relative fl-itc sm:w-full">
@@ -38,8 +28,10 @@ const SearchInput = ({ orgId }: Props) => {
       <Input
         className="pl-10 w-full"
         placeholder="Search"
-        onChange={handleChange}
-        value={value}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          handleSearch(e.target.value)
+        }
+        defaultValue={searchParams.get("search")?.toString() ?? ""}
       />
     </div>
   );

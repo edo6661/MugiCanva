@@ -1,11 +1,6 @@
 "use client";
-import {
-  OrganizationSwitcher,
-  UserButton,
-  useOrganization,
-} from "@clerk/nextjs";
+import { UserButton, useOrganization } from "@clerk/nextjs";
 import React from "react";
-import BoardsOrganization from "./BoardsOrganization";
 import SwitcherOrganization from "./SwitcherOrganization";
 import SearchInput from "./SearchInput";
 import DropdownBoards from "./DropdownBoards";
