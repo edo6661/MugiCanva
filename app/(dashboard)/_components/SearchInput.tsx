@@ -16,32 +16,23 @@ const SearchInput = ({ orgId }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const boards = useQuery(api.boards.getBoards, { orgId: orgId ? orgId : "" });
 
   const handleSearch = useDebounceCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     term ? params.set("search", term) : params.delete("search");
-    router.push(`${pathname}?${params.toString()}`);
+    router.replace(`${pathname}?${params.toString()}`);
   }, 500);
-
-  const optPlaceholder =
-    boards && boards.length > 0 && !isFavorite
-      ? "Search boards"
-      : isFavorite
-      ? "Cant in favorites"
-      : "Create a board";
 
   return (
     <div className=" relative fl-itc sm:w-full">
       <Search className="absolute left-2" />
       <Input
         className="pl-10 w-full"
-        placeholder={optPlaceholder}
+        placeholder="Search"
         onChange={(e: ChangeEvent<HTMLInputElement>) =>
           handleSearch(e.target.value)
         }
         defaultValue={searchParams.get("search")?.toString() ?? ""}
-        disabled={boards?.length === 0 || isFavorite}
       />
     </div>
   );

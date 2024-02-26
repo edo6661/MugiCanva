@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 interface Props {
   orgId: string;
 }
-const AddBoard = ({ orgId }: Props) => {
+const CreateBoardEmpty = ({ orgId }: Props) => {
   const [data, setData] = React.useState<Record<string, string>>({});
   const [isPending, startTransition] = useTransition();
   const create = useMutation(api.board.create);
@@ -43,15 +43,7 @@ const AddBoard = ({ orgId }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button
-          className={cn(
-            "col-span-1 bg-neutral-400 hover:bg-neutral-400/70 shadow-md rounded-lg flex flex-col items-center justify-center py-6"
-          )}
-        >
-          <div />
-          <Plus className="h-12 w-12 text-white stroke-1" />
-          <p className="text-sm text-white font-light">New board</p>
-        </button>
+        <Button>Add First Board!</Button>
       </DialogTrigger>
       <DialogContent
         className="bg-transparent p-0 border-none"
@@ -81,4 +73,4 @@ const AddBoard = ({ orgId }: Props) => {
   );
 };
 
-export default AddBoard;
+export default CreateBoardEmpty;

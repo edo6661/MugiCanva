@@ -9,8 +9,6 @@ import { useAuth } from "@clerk/nextjs";
 import AddBoard from "./AddBoard";
 import Boards from "./Boards";
 import LoadingBoards from "./LoadingBoards";
-import { useCallback, useEffect, useState } from "react";
-import { ResponseBoard } from "@/types/board";
 
 interface Props {
   orgId: string;
@@ -21,12 +19,9 @@ interface Props {
 }
 const BoardsList = ({ orgId, query }: Props) => {
   const data = useQuery(api.boards.getBoards, { orgId, ...query });
-  const [boards, setBoards] = useState<ResponseBoard[]>([]);
-  useEffect(() => {
-    if (data) setBoards(data);
-  }, [data, query]);
   const { userId } = useAuth();
 
+  // ! in convext, if the data is undefined, it means the query is still loading, so we can use this to show loading state, if the data is empty, convex will return null
   if (data === undefined) return <LoadingBoards />;
 
   if (!data?.length && query.search) return <EmptySearch />;
@@ -37,7 +32,7 @@ const BoardsList = ({ orgId, query }: Props) => {
     <article>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6 gap-5 mt-8 pb-10">
         <AddBoard orgId={orgId} />
-        {boards?.map((board) => (
+        {data?.map((board) => (
           <Boards
             key={board._id}
             {...board}

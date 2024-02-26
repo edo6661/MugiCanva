@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { handlePromise } from "@/utils/handlePromise";
 import { useRouter } from "next/navigation";
 import AddBoard from "./AddBoard";
+import CreateBoardEmpty from "./CreateBoardEmpty";
 
 const EmptyBoard = () => {
   const { organization: org } = useOrganization();
@@ -22,7 +23,7 @@ const EmptyBoard = () => {
         Start by creating a board for your organization
       </p>
       <div className="mt-6">
-        <AddBoard orgId={org?.id!} />
+        <CreateBoardEmpty orgId={org?.id!} />
       </div>
     </div>
   );

@@ -25,11 +25,10 @@ interface Props {
 const DashboardPage = ({ searchParams }: Props) => {
   const { organization } = useOrganization();
   const { setIsFavorite } = useisFavorites();
-  const searchParam = useSearchParams();
 
   useEffect(() => {
     setIsFavorite(searchParams.favorites === "true");
-  }, [setIsFavorite, searchParams, searchParam]);
+  }, [setIsFavorite, searchParams]);
   return (
     <main className={cn(" bg-neutral-200 min-h-screen", {})}>
       <section
