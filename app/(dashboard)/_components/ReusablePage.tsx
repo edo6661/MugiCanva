@@ -1,12 +1,10 @@
 "use client";
 import { useOrganization } from "@clerk/nextjs";
-import EmptyOrganization from "./_components/EmptyOrganization";
-import BoardsList from "./_components/BoardsList";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import { useisFavorites } from "@/store/useIsFavorites";
-import { motion } from "framer-motion";
-
+import EmptyOrganization from "../_components/EmptyOrganization";
+import BoardsList from "../_components/BoardsList";
 interface Props {
   searchParams: {
     search?: string;
@@ -14,7 +12,7 @@ interface Props {
   };
 }
 
-const DashboardPage = ({ searchParams }: Props) => {
+const ReusablePage = ({ searchParams }: Props) => {
   const { organization } = useOrganization();
   const { setIsFavorite } = useisFavorites();
 
@@ -22,7 +20,7 @@ const DashboardPage = ({ searchParams }: Props) => {
     setIsFavorite(searchParams.favorites === "true");
   }, [setIsFavorite, searchParams]);
   return (
-    <section className={cn(" bg-neutral-200 min-h-screen", {})}>
+    <main className={cn(" bg-neutral-200 min-h-screen", {})}>
       <section
         className={cn("pl-[92px] pr-2 py-4", {
           "container pl-2": !organization,
@@ -34,8 +32,8 @@ const DashboardPage = ({ searchParams }: Props) => {
           <BoardsList orgId={organization.id} query={searchParams} />
         )}
       </section>
-    </section>
+    </main>
   );
 };
 
-export default DashboardPage;
+export default ReusablePage;

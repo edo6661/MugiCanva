@@ -70,11 +70,6 @@ const AddBoard = ({ orgId }: Props) => {
           <Button disabled={!data.title || isPending} className="w-full">
             Add Board
           </Button>
-          <DialogClose asChild>
-            <Button className=" w-full" variant="destructive">
-              Cancel
-            </Button>
-          </DialogClose>
         </form>
       </DialogContent>
     </Dialog>

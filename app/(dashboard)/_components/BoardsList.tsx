@@ -31,7 +31,7 @@ const BoardsList = ({ orgId, query }: Props) => {
   if (!boards?.length) return <EmptyBoard />;
 
   return (
-    <article>
+    <div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6 gap-5 mt-8 pb-10">
         <AddBoard orgId={orgId} />
         {boards?.map((board) => (
@@ -43,7 +43,7 @@ const BoardsList = ({ orgId, query }: Props) => {
           />
         ))}
       </div>
-    </article>
+    </div>
   );
 };
 

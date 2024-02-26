@@ -14,21 +14,32 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { LayoutDashboard, Star } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { upperFirst } from "@/utils";
 
 export default function DropdownBoards() {
   const [board, setBoard] = React.useState("team");
-
-  const searchParams = useSearchParams();
-  const favorites = searchParams.get("favorites");
+  const pathname = usePathname();
 
   React.useEffect(() => {
-    if (favorites) {
-      return setBoard("favorites");
+    if (pathname.includes("/q")) {
+      setBoard("favorites");
+    } else {
+      setBoard("team");
     }
-    return setBoard("team");
-  }, [favorites]);
+  }, [pathname]);
+
+  // ! idk why only work in development
+  // const router = useRouter();
+  // const searchParams = useSearchParams();
+  // const favorites = searchParams.get("favorites");
+
+  // React.useEffect(() => {
+  //   if (favorites) {
+  //     return setBoard("favorites");
+  //   }
+  //   return setBoard("team");
+  // }, [favorites]);
 
   return (
     <DropdownMenu>
@@ -50,7 +61,7 @@ export default function DropdownBoards() {
           <DropdownMenuRadioItem value="favorites" className=" mx-auto p-0">
             <Link
               href={{
-                pathname: "/",
+                pathname: "/q",
                 query: { favorites: "true" },
               }}
               className="fl-itc gap-2 h-full w-full py-2 px-8"
