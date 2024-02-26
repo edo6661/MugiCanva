@@ -4,6 +4,7 @@ import { CreateOrganization } from "@clerk/nextjs";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
+import { Hint } from "@/components/global/Hint";
 
 const AddOrganization = () => {
   return (
@@ -29,7 +30,14 @@ export const ReuseableModal = ({ children }: { children: React.ReactNode }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="w-full">{children}</div>
+        <Hint
+          label="Add Organization"
+          side="right"
+          align="center"
+          sideOffset={18}
+        >
+          <div className="w-full">{children}</div>
+        </Hint>
       </DialogTrigger>
       <DialogContent className="p-0 bg-transparent border-none max-w-[480px]">
         <CreateOrganization />

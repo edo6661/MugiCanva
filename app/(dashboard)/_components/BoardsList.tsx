@@ -21,7 +21,6 @@ const BoardsList = ({ orgId, query }: Props) => {
   const data = useQuery(api.boards.getBoards, { orgId, ...query });
   const { userId } = useAuth();
 
-  // ! in convext, if the data is undefined, it means the query is still loading, so we can use this to show loading state, if the data is empty, convex will return null
   if (data === undefined) return <LoadingBoards />;
 
   if (!data?.length && query.search) return <EmptySearch />;

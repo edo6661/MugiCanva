@@ -13,7 +13,7 @@ export default function InviteOrganization() {
           <Hint
             label="Invite organization"
             side="right"
-            align="start"
+            align="center"
             sideOffset={18}
           >
             <button className="mx-auto bg-neutral-400/70 w-full h-12 rounded-full border border-neutral-400/70">

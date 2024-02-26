@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import ImageUpload from "./_components/ImageUpload";
 import { useisFavorites } from "@/store/useIsFavorites";
+import { useSearchParams } from "next/navigation";
 
 interface Props {
   searchParams: {
@@ -24,9 +25,11 @@ interface Props {
 const DashboardPage = ({ searchParams }: Props) => {
   const { organization } = useOrganization();
   const { setIsFavorite } = useisFavorites();
+  const searchParam = useSearchParams();
+
   useEffect(() => {
     setIsFavorite(searchParams.favorites === "true");
-  }, [searchParams.favorites, setIsFavorite]);
+  }, [setIsFavorite, searchParams, searchParam]);
   return (
     <main className={cn(" bg-neutral-200 min-h-screen", {})}>
       <section

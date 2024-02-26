@@ -34,6 +34,7 @@ const AddBoard = ({ orgId }: Props) => {
         create({ orgId, title: data.title, imageUrl: data.imageUrl }),
         (id) => {
           toast.success("Board created successfully");
+          e.stopPropagation();
           setData({});
         }
       );
@@ -57,7 +58,10 @@ const AddBoard = ({ orgId }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{optTrigger}</DialogTrigger>
-      <DialogContent className="bg-transparent p-0 border-none">
+      <DialogContent
+        className="bg-transparent p-0 border-none"
+        onClick={(e) => e.stopPropagation()}
+      >
         <form
           className="bg-white border w-full h-full p-12 rounded-2xl mx-auto space-y-4"
           onSubmit={handleAdd}

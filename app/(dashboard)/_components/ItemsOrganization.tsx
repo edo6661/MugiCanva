@@ -27,7 +27,7 @@ const ItemsOrganization = ({ name, id, imageUrl }: Props) => {
       <Hint label={name} side="right" align="center" sideOffset={16}>
         <Image
           className={cn(
-            "rounded-full cursor-pointer opacity-75 hover:opacity-100 transition-all duration-300 border-neutral-400/70 border",
+            "rounded-full cursor-pointer opacity-75 hover:opacity-100 transition-all duration-300 border-neutral-400/70 border w-[48px] h-[48px] object-contain",
             {
               "opacity-100": isActiveOrg,
             }

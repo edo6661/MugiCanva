@@ -21,7 +21,7 @@ const SearchInput = ({ orgId }: Props) => {
   const handleSearch = useDebounceCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     term ? params.set("search", term) : params.delete("search");
-    router.replace(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   }, 500);
 
   const optPlaceholder =

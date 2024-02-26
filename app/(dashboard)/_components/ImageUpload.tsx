@@ -34,10 +34,8 @@ const ImageUpload = ({ data, setData }: Props) => {
           >
             <Image
               src={data.imageUrl}
-              layout="fill"
-              objectFit="cover"
               alt="Board Image"
-              className="mx-auto"
+              className="mx-auto object-cover rounded-xl h-52 w-52"
             />
           </motion.div>
         )}

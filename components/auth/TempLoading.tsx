@@ -18,7 +18,8 @@ export default function TempLoading() {
           alt="Logo"
           width={386}
           height={320}
-          className="animate-pulse duration-700 object-contain"
+          priority
+          className="animate-pulse duration-700 object-contain w-auto h-auto"
         />
       )}
     </div>
