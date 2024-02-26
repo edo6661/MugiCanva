@@ -37,11 +37,17 @@ export default function DropdownBoards() {
   React.useEffect(() => {
     if (favorites) {
       router.refresh();
-      return setBoard("favorites");
+      router.prefetch("/?favorites=true");
+      setBoard("favorites");
+      router.prefetch("/?favorites=true");
+      router.refresh();
     }
     router.refresh();
-    return setBoard("team");
-  }, [favorites]);
+    router.prefetch("/");
+    setBoard("team");
+    router.prefetch("/");
+    router.refresh();
+  }, [favorites, router]);
 
   return (
     <DropdownMenu>
